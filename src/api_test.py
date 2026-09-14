@@ -28,7 +28,7 @@ def assert_logged(caplog: pytest.LogCaptureFixture, levelname: str, message: str
     assert caplog.records[0].message == message
 
 
-def assert_serves(
+def _assert_serves(
     server_stub: grpc.Server, grpc_stub: MagicMock, echo_stub: MagicMock, caplog: pytest.LogCaptureFixture,
     port: int, max_num_workers: int
 ):
@@ -41,27 +41,33 @@ def assert_serves(
     assert_logged(caplog, "INFO", f"Serving at http://127.0.0.1:{port}")
 
 
-def test__serve(mocker, caplog):
+def setup_state(mocker, caplog):
     echo_stub = registrar_test.patch_grpc_echo(mocker)
     (grpc_stub, server_stub) = patch_grpc_server(mocker)
+    return (echo_stub, grpc_stub, server_stub, caplog)
+
+
+def assert_serves(test_state, port: int, max_num_workers: int):
+    (echo_stub, grpc_stub, server_stub, caplog) = test_state
+    _assert_serves(
+        server_stub, grpc_stub, echo_stub, caplog,
+        port, max_num_workers
+    )
+
+
+def test__serve(mocker, caplog):
+    test_state = setup_state(mocker, caplog)
 
     with tutil.log_capture(caplog):
         sut.serve(port=8080, max_num_workers=10)
     
-    assert_serves(
-        server_stub, grpc_stub, echo_stub, caplog,
-        port=8080, max_num_workers=10
-    )
+    assert_serves(test_state, port=8080, max_num_workers=10)
 
 
 def test_forcing__serve(mocker, caplog):
-    echo_stub = registrar_test.patch_grpc_echo(mocker)
-    (grpc_stub, server_stub) = patch_grpc_server(mocker)
+    test_state = setup_state(mocker, caplog)
 
     with tutil.log_capture(caplog):
         sut.serve(port=1234, max_num_workers=5)
 
-    assert_serves(
-        server_stub, grpc_stub, echo_stub, caplog,
-        port=1234, max_num_workers=5
-    )
+    assert_serves(test_state, port=1234, max_num_workers=5)

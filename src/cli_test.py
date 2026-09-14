@@ -23,28 +23,20 @@ def run_patched_app(runner: CliRunner, args: Sequence[str]):
 
 
 def test__cli(runner, mocker, caplog):
-    echo_stub = registrar_test.patch_grpc_echo(mocker)
-    (grpc_stub, server_stub) = api_test.patch_grpc_server(mocker)
+    api_test_state = api_test.setup_state(mocker, caplog)
 
     with tutil.log_capture(caplog):
         result = run_patched_app(runner, args=[])
     
-    api_test.assert_serves(
-        server_stub, grpc_stub, echo_stub, caplog,
-        port=8080, max_num_workers=10
-    )
+    api_test.assert_serves(api_test_state, port=8080, max_num_workers=10)
     assert result.exit_code == 0
 
 
 def test_forcing__cli(runner, mocker, caplog):
-    echo_stub = registrar_test.patch_grpc_echo(mocker)
-    (grpc_stub, server_stub) = api_test.patch_grpc_server(mocker)
+    api_test_state = api_test.setup_state(mocker, caplog)
 
     with tutil.log_capture(caplog):
         result = run_patched_app(runner, args=["--port=5050", "--max-workers=5"])
     
-    api_test.assert_serves(
-        server_stub, grpc_stub, echo_stub, caplog,
-        port=5050, max_num_workers=5
-    )
+    api_test.assert_serves(api_test_state, port=5050, max_num_workers=5)
     assert result.exit_code == 0
