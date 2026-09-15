@@ -1,8 +1,8 @@
 from . import servicer as sut
 import pytest
 
-from ...protos import echo_pb2
-from ...protos import echo_pb2_grpc
+from protos import echo_pb2
+from protos import echo_pb2_grpc
 
 
 @pytest.fixture(scope="module")
