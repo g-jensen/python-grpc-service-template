@@ -1,6 +1,6 @@
 import abc
 from concurrent import futures
-from registrar import register_echo
+import registrar
 import grpc
 import logging
 
@@ -14,7 +14,8 @@ def create_grpc_server(max_num_workers: int):
 
 def serve(port: int, max_num_workers: int) -> grpc.Server:
     server = create_grpc_server(max_num_workers)
-    register_echo(server)
+
+    registrar.register_services(registrar.services_to_register(), server)
     
     address = f"127.0.0.1:{port}"
     server.add_insecure_port(address)
