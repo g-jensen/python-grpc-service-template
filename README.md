@@ -2,7 +2,7 @@
 
 Requires the `uv` Python package manager
 
-## Development
+## Quickstart
 
 ### Install all dependencies
 
@@ -19,6 +19,14 @@ source .venv/bin/activate
 ```bash
 ./scripts/generate_protos.sh
 ```
+
+### Rename the app
+
+```bash
+./scripts/rename.sh new-name
+```
+
+Note that this will only work once.
 
 ### Run the server
 
