@@ -1,20 +1,21 @@
+# from protos import two_pb2_grpc
+# from .servicers.two import TwoServicer
+
+from protos import echo_pb2_grpc
+from .servicers.echo import EchoServicer
+
 from . import registrar as sut
 import grpc
 import pytest
-from . import test_util
 from unittest.mock import MagicMock
 from pytest_mock import MockerFixture
-from .servicers.echo import EchoServicer
 from typing import Sequence
-
-
-@pytest.fixture
-def mocker(pytestconfig): return test_util.mocker(pytestconfig)
 
 
 def stub_services_to_register(mocker: MockerFixture):
     return [
-        (mocker.patch("src.registrar.add_EchoServicer_to_server"), EchoServicer),
+        (mocker.patch("protos.echo_pb2_grpc.add_EchoServicer_to_server"), EchoServicer),
+        # (mocker.patch("protos.two_pb2_grpc.add_TwoServicer_to_server"), TwoServicer),
     ]
 
 

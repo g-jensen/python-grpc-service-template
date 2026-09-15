@@ -14,10 +14,6 @@ from . import registrar_test
 def runner(): return CliRunner()
 
 
-@pytest.fixture
-def mocker(pytestconfig): return tutil.mocker(pytestconfig)
-
-
 def run_patched_app(runner: CliRunner, args: Sequence[str]):
     return runner.invoke(sut.app, args)
 

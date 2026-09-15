@@ -4,9 +4,6 @@ from sys import stdout
 from . import test_util as tutil
 import pytest
 
-@pytest.fixture
-def mocker(pytestconfig): return tutil.mocker(pytestconfig)
-
 
 def patch_basic_config(mocker):
     return mocker.patch("logging.basicConfig")

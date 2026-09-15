@@ -10,10 +10,6 @@ from .servicers.echo import EchoServicer
 from typing import Sequence
 
 
-@pytest.fixture
-def mocker(pytestconfig): return tutil.mocker(pytestconfig)
-
-
 def server_mock(mocker: MockerFixture):
     return mocker.MagicMock(spec=grpc.Server)
 
