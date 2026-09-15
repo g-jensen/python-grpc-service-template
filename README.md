@@ -14,19 +14,19 @@ And activate the environment:
 source .venv/bin/activate
 ```
 
-### Generate Protobuf Files
+### Generate protobuf files
 
 ```bash
 ./scripts/generate_protos.sh
 ```
 
-### Run
+### Run the server
 
 ```bash
 uv run serve
 ```
 
-### Unit Tests
+### Unit tests
 
 ```bash
 uv run test
