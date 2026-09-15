@@ -15,5 +15,5 @@ replace "pyproject.toml"
 replace "uv.lock"
 
 SCRIPT=$(realpath "${BASH_SOURCE[0]}")
-# rm $SCRIPT
+rm $SCRIPT
 echo "Self destructed script."
