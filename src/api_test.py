@@ -1,12 +1,12 @@
-import api as sut
+from . import api as sut
 import grpc
 import pytest
-import test_util as tutil
+from . import test_util as tutil
 from unittest.mock import MagicMock
 from pytest_mock import MockerFixture
-import registrar_test
+from . import registrar_test
 import logging
-from servicers.echo import EchoServicer
+from .servicers.echo import EchoServicer
 from typing import Sequence
 
 
@@ -20,7 +20,7 @@ def server_mock(mocker: MockerFixture):
 
 def patch_grpc_server(mocker: MockerFixture):
     server = server_mock(mocker)
-    stub = mocker.patch("api.create_grpc_server", return_value=server)
+    stub = mocker.patch("src.api.create_grpc_server", return_value=server)
     return (stub, server)
 
 

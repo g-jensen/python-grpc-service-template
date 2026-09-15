@@ -1,6 +1,6 @@
 import abc
 from concurrent import futures
-import registrar
+from . import registrar
 import grpc
 import logging
 

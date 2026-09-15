@@ -1,5 +1,5 @@
-from protos import echo_pb2_grpc
-from protos import echo_pb2
+from ...protos import echo_pb2_grpc
+from ...protos import echo_pb2
 
 
 class EchoServicer(echo_pb2_grpc.EchoServicer):

@@ -1,4 +1,4 @@
-import env as sut
+from . import env as sut
 import pytest
 
 def test__not_in_production(monkeypatch):

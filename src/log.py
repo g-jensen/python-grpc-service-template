@@ -1,6 +1,6 @@
 import logging
 from sys import stdout
-import env
+from . import env
 
 
 logger = logging.getLogger(__name__)

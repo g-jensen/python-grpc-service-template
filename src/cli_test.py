@@ -1,13 +1,13 @@
-import cli as sut
+from . import cli as sut
 import pytest
-import test_util as tutil
+from . import test_util as tutil
 from pytest_mock import MockerFixture
 from unittest.mock import MagicMock
 from typer.testing import CliRunner
 from typer.testing import Result as TyperResult
 from typing import Sequence
-import api_test
-import registrar_test
+from . import api_test
+from . import registrar_test
 
 
 @pytest.fixture

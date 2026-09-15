@@ -207,7 +207,7 @@ wheels = [
 [[package]]
 name = "python-grpc-service-template"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "grpcio-tools" },
     { name = "typer" },

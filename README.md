@@ -5,6 +5,7 @@ Requires the `uv` Python package manager
 ## Development
 
 ### Install all dependencies
+
 ```bash
 uv sync --all-groups
 ```
@@ -14,18 +15,21 @@ source .venv/bin/activate
 ```
 
 ### Generate Protobuf Files
+
 ```bash
-./generate_protos.sh
+./scripts/generate_protos.sh
 ```
 
 ### Run
+
 ```bash
-uv run src/main.py
+uv run serve
 ```
 
 ### Unit Tests
+
 ```bash
-pytest .
+uv run test
 ```
 
 ### Component 'Test'

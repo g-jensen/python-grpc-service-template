@@ -1,10 +1,10 @@
-import registrar as sut
+from . import registrar as sut
 import grpc
 import pytest
-import test_util
+from . import test_util
 from unittest.mock import MagicMock
 from pytest_mock import MockerFixture
-from servicers.echo import EchoServicer
+from .servicers.echo import EchoServicer
 from typing import Sequence
 
 
@@ -14,7 +14,7 @@ def mocker(pytestconfig): return test_util.mocker(pytestconfig)
 
 def stub_services_to_register(mocker: MockerFixture):
     return [
-        (mocker.patch("registrar.add_EchoServicer_to_server"), EchoServicer),
+        (mocker.patch("src.registrar.add_EchoServicer_to_server"), EchoServicer),
     ]
 
 
