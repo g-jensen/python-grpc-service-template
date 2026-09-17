@@ -50,11 +50,14 @@ grpcurl -plaintext -proto idl/protos/echo.proto -d '{"content": "Echo!"}' 127.0.
 
 ### Adding a service
 
-1. Create a new proto file for your service in `idl/protos/my_service.proto`
+1. Create a new proto definition for your service in `idl/protos/my_service.proto`
 2. Regenerate proto files: `./scripts/generate_protos.sh`
-3. Implement your service directory for your service in `src/servicers/my_service/` (take inspiration from `src/servicers/echo/`)
-4. Register your service
+3. Run `python3 scripts/proto_boilerplate.py idl/protos/my_service.proto` to implement the boilerplate
+    * Alternatively you can take inspiration from `src/servicers/echo/` to manually implement the boilerplate
+4. Assert that boilerplate tests fail
+    * Optionally you can implement your service logic now (before registration)
+5. Register your service
     1. Add your service to the `stub_services_to_register` in `src/registrar_test.py`
-    2. Assert that tests fail
+    2. Assert that service registration tests fail
     3. Add your service to the `services_to_register` in `src/registrar.py`
-    4. Assert that tests now pass
+    4. Assert that service registration tests now pass
