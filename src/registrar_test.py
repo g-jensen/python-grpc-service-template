@@ -1,7 +1,3 @@
-# from protos import two_pb2_grpc
-# from .servicers.two import TwoServicer
-
-from protos import echo_pb2_grpc
 from .servicers.echo import EchoServicer
 
 from . import registrar as sut
@@ -15,7 +11,6 @@ from typing import Sequence
 def stub_services_to_register(mocker: MockerFixture):
     return [
         (mocker.patch("protos.echo_pb2_grpc.add_EchoServicer_to_server"), EchoServicer),
-        # (mocker.patch("protos.two_pb2_grpc.add_TwoServicer_to_server"), TwoServicer),
     ]
 
 

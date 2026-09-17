@@ -1,6 +1,3 @@
-# from protos import two_pb2_grpc
-# from .servicers.two import TwoServicer
-
 from protos import echo_pb2_grpc
 from .servicers.echo import EchoServicer
 
@@ -11,7 +8,6 @@ from typing import Callable
 def services_to_register():
     return [
         (echo_pb2_grpc.add_EchoServicer_to_server, EchoServicer()),
-        # (two_pb2_grpc.add_TwoServicer_to_server, TwoServicer()),
     ]
 
 
