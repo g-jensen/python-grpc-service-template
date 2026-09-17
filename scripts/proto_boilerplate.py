@@ -1,3 +1,6 @@
+# TODO - add automated testing for this script
+# TODO - add patch support to automate service registration
+
 import sys
 import os
 import tempfile
