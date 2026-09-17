@@ -8,10 +8,12 @@ from typing import Sequence
 from grpc_tools import protoc
 from google.protobuf import descriptor_pb2
 
+
 ROOT_DIR = Path("templates/service")
 TEMPLATE_SUFFIX = ".template"
 PATCH_SUFFIX = ".patch"
 DEFINITION_SUFFIX = ".definition"
+
 
 def get_file_paths():
     template_file_paths = []
@@ -104,6 +106,10 @@ def parse_proto(file_path):
     return Proto(name=file_path.stem, services=services)
 
 
+def print_err(*args):
+    print(*args, file=sys.stderr)
+
+
 def main():
     args = sys.argv[1:]
     
@@ -116,6 +122,8 @@ def main():
 
     procedure_src_path = str(ROOT_DIR / Path("PROCEDURE_SRC" + DEFINITION_SUFFIX))
     procedure_src_content = open(procedure_src_path).read()
+
+    new_file_count = 0
 
     for service in proto.services:
         context = {
@@ -135,14 +143,18 @@ def main():
             detemplated_path = Path(str(reoriented_path)[:-len(TEMPLATE_SUFFIX)])
             
             if detemplated_path.exists():
-                print(f"Error: service file {detemplated_path} already exists", file=sys.stderr)
-                exit(1)
+                print_err(f"Skipping: service file {detemplated_path} already exists")
+                continue
+                
+            new_file_count += 1
             
             file_content = replace_strs(template_file_content, context)
 
             os.makedirs(detemplated_path.parent, exist_ok=True)
             with open(detemplated_path, "w") as file:
                 file.write(file_content)
+    
+    print_err(f"Done. Created {new_file_count} new files.")
 
 
 if __name__ == "__main__":
