@@ -1,0 +1,2 @@
+    def ${PROCEDURE_NAME}(self, request, context):
+        raise Exception("Not implemented")
